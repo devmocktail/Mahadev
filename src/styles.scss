@@ -15,7 +15,10 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Note: no global smooth scroll — it turns any programmatic/scroll
+       restoration into a visible glide on load. Smooth scrolling is applied
+       explicitly where wanted (back-to-top button, anchor clicks). */
+    scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
   }
 

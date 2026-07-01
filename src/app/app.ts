@@ -37,6 +37,15 @@ export class App implements OnInit {
   private readonly scroll = inject(ScrollService);
 
   ngOnInit(): void {
+    // Let the Angular router own scroll behaviour and always start at the top,
+    // preventing the browser from restoring a downward scroll on load (which,
+    // with async/lazy content, looked like a jump to the footer and back).
+    if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
     this.scroll.init();
   }
 }
