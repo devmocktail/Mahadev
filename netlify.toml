@@ -1,0 +1,15 @@
+# Netlify deployment configuration for Mahadev Eventz (Angular 20)
+[build]
+  command = "npm run build"
+  # Angular's application builder emits the site into the `browser` subfolder
+  publish = "dist/mahadev-eventz/browser"
+
+[build.environment]
+  # Angular 20 requires Node 20.19+ / 22.12+
+  NODE_VERSION = "20"
+
+# SPA fallback: let the Angular router handle all deep links (e.g. /gallery)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
