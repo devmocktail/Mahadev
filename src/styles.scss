@@ -1,0 +1,264 @@
+/* ============================================================
+   Mahadev Eventz — Global Styles
+   Tailwind layers + luxury design tokens
+   ============================================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Base ---------- */
+@layer base {
+  :root {
+    --gold: #d4af37;
+    --ink: #0b0b0b;
+    --ink-soft: #111111;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink text-white/85 font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Light mode override (dark mode toggle removes `dark` class) */
+  html:not(.dark) body {
+    @apply bg-[#faf7ef] text-ink/90;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display text-white;
+  }
+
+  html:not(.dark) h1,
+  html:not(.dark) h2,
+  html:not(.dark) h3 {
+    @apply text-ink;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #0b0b0b;
+  }
+
+  /* Luxury gold scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0b0b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#d4af37, #83691b);
+    border-radius: 999px;
+  }
+}
+
+/* ---------- Reusable component classes ---------- */
+@layer components {
+  .container-lux {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      #f6efcb 0%,
+      #d4af37 28%,
+      #fff6d5 50%,
+      #d4af37 72%,
+      #ae8c24 100%
+    );
+    background-size: 220% auto;
+    animation: text-shine 6s linear infinite;
+  }
+  @keyframes text-shine {
+    to {
+      background-position: 220% center;
+    }
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+  }
+
+  .glass-strong {
+    background: rgba(17, 17, 17, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+  }
+
+  .gold-divider {
+    @apply h-px w-24 bg-gold-gradient;
+  }
+
+  /* ----- Form controls ----- */
+  .form-label {
+    @apply mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-white/55;
+  }
+  .form-input {
+    @apply w-full rounded-xl border border-white/10 bg-ink/60 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all duration-300;
+  }
+  .form-input:focus {
+    @apply border-gold/60 ring-2 ring-gold/20;
+  }
+  .form-input option {
+    @apply bg-ink-soft text-white;
+  }
+  .form-error {
+    @apply mt-1.5 text-xs text-red-400;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-500 ease-lux;
+  }
+  .hover-lift:hover {
+    @apply -translate-y-2 shadow-gold-lg;
+  }
+}
+
+/* ---------- Scroll reveal (used by appReveal directive) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Button ripple (used by appRipple directive) ---------- */
+@keyframes ripple-spread {
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* ---------- Anchor scroll offset (fixed navbar) ---------- */
+section[id],
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ---------- Card sheen sweep on hover ---------- */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
+.sheen:hover::after {
+  left: 130%;
+  transition: left 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Animated gold underline for links/labels ---------- */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, #d4af37, #f6efcb);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ---------- Soft entrance for lazily-loaded route content ---------- */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+main > * {
+  animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- View Transition tuning (smooth page changes) ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+}
+
+/* ---------- Initial pre-bootstrap loader ---------- */
+.app-prebloom {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 1.2rem;
+  background: #0b0b0b;
+  z-index: 9999;
+}
+.app-prebloom__ring {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top-color: #d4af37;
+  animation: prebloom-spin 0.9s linear infinite;
+}
+.app-prebloom__brand {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.35em;
+  color: #d4af37;
+  font-size: 0.85rem;
+  text-align: center;
+}
+@keyframes prebloom-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

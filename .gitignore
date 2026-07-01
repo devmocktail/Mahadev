@@ -1,0 +1,27 @@
+# Dependencies
+/node_modules
+/.angular/cache
+
+# Build output
+/dist
+/out-tsc
+/tmp
+
+# IDE
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+serve*.log
+serve*.err.log
+
+# Raw image drop (originals are copied into src/assets/images/gallery/photos)
+/assets/

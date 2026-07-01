@@ -1,0 +1,92 @@
+<section id="contact" class="relative py-16 sm:py-20 lg:py-24">
+  <div class="container-lux">
+    <app-section-header
+      eyebrow="Get In Touch"
+      titleLead="Let's Create"
+      titleAccent="Together"
+      subtitle="Have a celebration in mind? Reach out — we'd love to hear your story and bring it to life."
+    />
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-2">
+      <!-- Contact details -->
+      <div class="space-y-6">
+        @for (channel of channels; track channel.label) {
+          <a
+            appReveal
+            [href]="channel.href"
+            class="group flex items-center gap-5 rounded-3xl glass p-6 hover-lift"
+          >
+            <span
+              class="grid h-14 w-14 shrink-0 place-content-center rounded-2xl bg-gold-gradient text-xl text-ink shadow-gold transition-transform duration-500 group-hover:scale-110"
+            >
+              <i [class]="channel.icon"></i>
+            </span>
+            <div>
+              <p class="text-xs uppercase tracking-[0.2em] text-gold/80">{{ channel.label }}</p>
+              <p class="font-display text-lg text-white">{{ channel.value }}</p>
+            </div>
+          </a>
+        }
+
+        <!-- Quick actions -->
+        <div class="grid grid-cols-2 gap-4">
+          <a
+            [href]="whatsappLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-4 font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5"
+          >
+            <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+          </a>
+          <a
+            [href]="'tel:+' + company.phoneIntl"
+            class="flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-4 font-semibold text-ink shadow-gold transition-transform hover:-translate-y-0.5"
+          >
+            <i class="fa-solid fa-phone"></i> Call Now
+          </a>
+        </div>
+
+        <!-- Social -->
+        <div class="flex items-center gap-4 pt-2">
+          <span class="text-sm text-white/50">Follow us</span>
+          <a
+            [href]="company.instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="grid h-11 w-11 place-content-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-ink"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a
+            [href]="company.facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="grid h-11 w-11 place-content-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-ink"
+          >
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Map placeholder -->
+      <div appReveal id="map" class="overflow-hidden rounded-3xl glass shadow-glass">
+        <div class="relative flex h-full min-h-[22rem] flex-col items-center justify-center gap-4 p-8 text-center">
+          <div class="pointer-events-none absolute inset-0 bg-ink-radial opacity-70"></div>
+          <span class="relative grid h-16 w-16 place-content-center rounded-full bg-gold-gradient text-2xl text-ink shadow-gold">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </span>
+          <p class="relative font-display text-xl text-white">{{ company.location }}</p>
+          <p class="relative max-w-xs text-sm text-white/55">
+            Google Maps embed placeholder — drop your live map iframe here in production.
+          </p>
+          <span class="relative mt-2 inline-flex items-center gap-2 text-sm text-gold">
+            <i class="fa-solid fa-location-arrow"></i> Serving celebrations across the region
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f6efcb 0%, #d4af37 60%, transparent 100%);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+  animation-name: particle-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  50% {
+    transform: translateY(-28px) translateX(10px) scale(1.25);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}

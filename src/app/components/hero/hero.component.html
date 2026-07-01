@@ -1,0 +1,124 @@
+<section
+  class="relative flex min-h-[calc(100vh-5rem)] items-center overflow-hidden bg-ink"
+  aria-label="Welcome to Mahadev Eventz"
+>
+  <!-- Layered luxury background -->
+  <div class="pointer-events-none absolute inset-0 bg-ink-radial"></div>
+  <div
+    class="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-gold/20 blur-[120px]"
+  ></div>
+  <div
+    class="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-gold/10 blur-[120px]"
+  ></div>
+
+  <!-- Floating particles -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    @for (p of particles; track $index) {
+      <span
+        class="hero-particle"
+        [style.left.%]="p.left"
+        [style.top.%]="p.top"
+        [style.width.px]="p.size"
+        [style.height.px]="p.size"
+        [style.opacity]="p.opacity"
+        [style.animation-delay.s]="p.delay"
+        [style.animation-duration.s]="p.duration"
+      ></span>
+    }
+  </div>
+
+  <div class="container-lux relative grid items-center gap-12 py-12 sm:py-16 lg:grid-cols-2 lg:py-24">
+    <!-- Copy -->
+    <div class="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
+      <span
+        @fadeUp
+        class="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 px-4 py-1.5 text-[0.65rem] font-medium uppercase tracking-[0.25em] text-gold sm:text-xs"
+      >
+        <i class="fa-solid fa-crown"></i>
+        {{ company.tagline }}
+      </span>
+
+      <h1 @fadeUp class="font-display text-[2.1rem] font-bold leading-[1.12] sm:text-5xl lg:text-6xl">
+        Creating Memories
+        <span class="block text-gradient-gold">That Last Forever</span>
+      </h1>
+
+      <p
+        @fadeUp
+        class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/65 sm:text-lg lg:mx-0"
+      >
+        {{ company.name }} transforms every celebration into unforgettable memories with premium
+        decorations and creative event planning.
+      </p>
+
+      <div @fadeUp class="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+        <app-button routerLink="/booking" size="lg" icon="fa-solid fa-calendar-check">
+          Book Now
+        </app-button>
+        <app-button routerLink="/gallery" variant="outline" size="lg" icon="fa-solid fa-images">
+          View Gallery
+        </app-button>
+      </div>
+
+      <!-- Trust row -->
+      <div
+        @fadeUp
+        class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/55 lg:justify-start"
+      >
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-star text-gold"></i> 5.0 Client Rating
+        </span>
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-award text-gold"></i> {{ company.experienceYears }} Years Experience
+        </span>
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-heart text-gold"></i> 500+ Happy Clients
+        </span>
+      </div>
+    </div>
+
+    <!-- Visual -->
+    <div @slideInRight class="relative">
+      <div class="relative mx-auto max-w-md lg:max-w-none">
+        <div
+          appParallax
+          [parallaxSpeed]="0.06"
+          class="overflow-hidden rounded-[2rem] border border-gold/20 shadow-gold-lg"
+        >
+          <img
+            src="assets/images/hero/hero-event.jpeg"
+            alt="Luxury decorated event stage by Mahadev Eventz"
+            width="640"
+            height="720"
+            decoding="async"
+            class="h-full max-h-[560px] w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-hero-veil"></div>
+        </div>
+
+        <!-- Floating accent card -->
+        <div
+          @fadeIn
+          class="absolute -bottom-6 -left-6 hidden items-center gap-3 rounded-2xl glass-strong p-4 shadow-glass sm:flex"
+        >
+          <span class="grid h-12 w-12 place-content-center rounded-xl bg-gold-gradient text-ink">
+            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+          </span>
+          <div>
+            <p class="font-display text-lg text-white">1000+ Events</p>
+            <p class="text-xs text-white/55">Flawlessly delivered</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div
+    class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/40 lg:flex"
+    aria-hidden="true"
+  >
+    <span class="text-[0.65rem] uppercase tracking-[0.3em]">Scroll</span>
+    <span class="h-10 w-px animate-pulse bg-gradient-to-b from-gold to-transparent"></span>
+  </div>
+</section>

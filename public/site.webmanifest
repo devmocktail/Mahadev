@@ -1,0 +1,16 @@
+{
+  "name": "Mahadev Eventz",
+  "short_name": "Mahadev Eventz",
+  "description": "We Make Your Moments Unforgettable — premium event decoration & planning.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0B",
+  "theme_color": "#0B0B0B",
+  "icons": [
+    {
+      "src": "/assets/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

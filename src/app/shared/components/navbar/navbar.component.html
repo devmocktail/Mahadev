@@ -1,0 +1,163 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-lux"
+  [class.py-2]="scrolled()"
+  [class.py-4]="!scrolled()"
+>
+  <div
+    class="container-lux flex items-center justify-between rounded-2xl px-4 transition-all duration-500 ease-lux sm:px-6"
+    [class.glass-strong]="scrolled()"
+    [class.shadow-glass]="scrolled()"
+    [class.py-2]="scrolled()"
+    [class.py-3]="!scrolled()"
+  >
+    <app-logo />
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="text-gold"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          class="group relative text-sm font-medium text-white/75 transition-colors duration-300 hover:text-gold"
+        >
+          {{ link.label }}
+          <span
+            class="absolute -bottom-1 left-0 h-px w-0 bg-gold-gradient transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden lg:block">
+        <app-button routerLink="/booking" size="sm" icon="fa-solid fa-calendar-check">
+          Book Now
+        </app-button>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        (click)="toggleMobile()"
+        class="grid h-10 w-10 place-content-center rounded-full border border-gold/30 text-gold transition-all duration-300 hover:bg-gold/10 lg:hidden"
+        [attr.aria-expanded]="mobileOpen()"
+        aria-label="Open menu"
+      >
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer + backdrop -->
+@if (mobileOpen()) {
+  <!-- Backdrop -->
+  <div
+    @backdrop
+    (click)="closeMobile()"
+    class="fixed inset-0 z-[60] bg-ink/70 backdrop-blur-sm lg:hidden"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Drawer -->
+  <aside
+    @drawer
+    class="fixed inset-y-0 right-0 z-[70] flex w-[82%] max-w-sm flex-col glass-strong shadow-gold-lg lg:hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <!-- Drawer header -->
+    <div class="flex items-center justify-between border-b border-gold/15 px-6 py-5">
+      <app-logo />
+      <button
+        type="button"
+        (click)="closeMobile()"
+        class="grid h-10 w-10 place-content-center rounded-full border border-gold/30 text-gold transition-all duration-300 hover:bg-gold hover:text-ink"
+        aria-label="Close menu"
+      >
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Links -->
+    <nav class="flex-1 overflow-y-auto px-4 py-6" aria-label="Mobile">
+      <ul class="space-y-1.5">
+        @for (link of links; track link.path) {
+          <li>
+            <a
+              class="drawer-link group flex items-center gap-4 rounded-2xl px-4 py-3.5 text-base font-medium text-white/80 transition-all duration-300 hover:bg-white/5 hover:text-gold"
+              [routerLink]="link.path"
+              routerLinkActive="bg-gold/10 text-gold"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              (click)="closeMobile()"
+            >
+              <span
+                class="grid h-9 w-9 place-content-center rounded-xl border border-gold/20 text-sm text-gold transition-colors group-hover:bg-gold group-hover:text-ink"
+              >
+                <i [class]="link.icon"></i>
+              </span>
+              {{ link.label }}
+              <i class="fa-solid fa-angle-right ml-auto text-xs text-gold/50"></i>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Footer CTA + contact -->
+    <div class="space-y-4 border-t border-gold/15 px-6 py-6">
+      <a
+        routerLink="/booking"
+        (click)="closeMobile()"
+        class="drawer-cta flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 font-semibold text-ink shadow-gold transition-transform duration-300 hover:-translate-y-0.5"
+      >
+        <i class="fa-solid fa-calendar-check"></i>
+        Book Now
+      </a>
+
+      <div class="drawer-cta flex items-center justify-center gap-3">
+        <a
+          [href]="whatsappLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/25 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a
+          [href]="'tel:+' + company.phoneIntl"
+          aria-label="Call"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/25 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-solid fa-phone"></i>
+        </a>
+        <a
+          [href]="company.instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/25 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a
+          [href]="company.facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/25 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+      </div>
+
+      <p class="text-center text-xs text-white/40">{{ company.phoneDisplay }}</p>
+    </div>
+  </aside>
+}
+
+<!-- Spacer so content isn't hidden behind the fixed navbar -->
+<div class="h-20" aria-hidden="true"></div>

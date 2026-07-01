@@ -1,0 +1,88 @@
+<section id="testimonials" class="relative py-16 sm:py-20 lg:py-24">
+  <div class="container-lux">
+    <app-section-header
+      eyebrow="Kind Words"
+      titleLead="Loved by Our"
+      titleAccent="Clients"
+      subtitle="Real stories from the celebrations we've had the honour to design."
+    />
+
+    <div
+      class="relative mx-auto mt-14 max-w-3xl"
+      (mouseenter)="stop()"
+      (mouseleave)="start()"
+    >
+      <!-- Slides -->
+      <div class="relative min-h-[20rem]">
+        @for (t of testimonials; track t.id) {
+          @if (active() === $index) {
+            <article
+              @fadeIn
+              class="rounded-3xl glass p-8 text-center shadow-glass sm:p-12"
+            >
+              <i class="fa-solid fa-quote-left text-3xl text-gold/60"></i>
+
+              <p class="mt-6 font-display text-xl leading-relaxed text-white/85 sm:text-2xl">
+                "{{ t.quote }}"
+              </p>
+
+              <div class="mt-7 flex justify-center gap-1 text-gold">
+                @for (s of stars(t.rating); track s) {
+                  <i class="fa-solid fa-star"></i>
+                }
+              </div>
+
+              <div class="mt-6 flex items-center justify-center gap-4">
+                <img
+                  [src]="t.avatar"
+                  [alt]="t.name"
+                  loading="lazy"
+                  width="56"
+                  height="56"
+                  class="h-14 w-14 rounded-full border-2 border-gold/50 object-cover"
+                />
+                <div class="text-left">
+                  <p class="font-display text-lg text-white">{{ t.name }}</p>
+                  <p class="text-sm text-gold/80">{{ t.role }}</p>
+                </div>
+              </div>
+            </article>
+          }
+        }
+      </div>
+
+      <!-- Controls -->
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          (click)="prev(); restart()"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/30 text-gold transition hover:bg-gold hover:text-ink"
+          aria-label="Previous testimonial"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="flex items-center gap-2">
+          @for (t of testimonials; track t.id; let i = $index) {
+            <button
+              type="button"
+              (click)="goTo(i); restart()"
+              [class]="dotClass(i)"
+              [attr.aria-label]="'Go to testimonial ' + (i + 1)"
+            ></button>
+          }
+        </div>
+
+        <button
+          type="button"
+          (click)="next(); restart()"
+          class="grid h-11 w-11 place-content-center rounded-full border border-gold/30 text-gold transition hover:bg-gold hover:text-ink"
+          aria-label="Next testimonial"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+

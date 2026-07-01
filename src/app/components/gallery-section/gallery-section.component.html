@@ -1,0 +1,85 @@
+<section id="gallery" class="relative py-16 sm:py-20 lg:py-24">
+  <div class="container-lux">
+    <app-section-header
+      eyebrow="Our Work"
+      titleLead="Moments We've"
+      titleAccent="Made Unforgettable"
+      subtitle="A glimpse into the celebrations we've designed. Filter by category and tap any image to explore it up close."
+    />
+
+    <!-- Category filters -->
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      @for (cat of categories; track cat) {
+        <button type="button" (click)="setCategory(cat)" [class]="chipClass(cat)">
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- Masonry grid -->
+    <div
+      [@staggerList]="filtered().length"
+      class="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5"
+    >
+      @for (item of filtered(); track item.id) {
+        <div class="break-inside-avoid">
+          <app-gallery-card [item]="item" (open)="openLightbox($event)" />
+        </div>
+      } @empty {
+        <p class="col-span-full text-center text-white/50">No items in this category yet.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  @if (lightboxItem(); as current) {
+    <div
+      @fadeIn
+      class="fixed inset-0 z-[70] flex items-center justify-center bg-ink/90 p-4 backdrop-blur-sm"
+      (click)="closeLightbox()"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="current.title"
+    >
+      <button
+        type="button"
+        (click)="closeLightbox()"
+        class="absolute right-5 top-5 grid h-12 w-12 place-content-center rounded-full glass-strong text-gold transition hover:bg-gold hover:text-ink"
+        aria-label="Close"
+      >
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <button
+        type="button"
+        (click)="prev(); $event.stopPropagation()"
+        class="absolute left-4 grid h-12 w-12 place-content-center rounded-full glass-strong text-gold transition hover:bg-gold hover:text-ink sm:left-8"
+        aria-label="Previous"
+      >
+        <i class="fa-solid fa-chevron-left text-lg"></i>
+      </button>
+
+      <figure @scaleIn class="max-h-[85vh] max-w-4xl" (click)="$event.stopPropagation()">
+        <img
+          [src]="current.image"
+          [alt]="current.title"
+          class="max-h-[72vh] w-full rounded-2xl border border-gold/20 object-contain shadow-gold-lg"
+        />
+        <figcaption class="mt-4 text-center">
+          <span class="text-xs uppercase tracking-[0.3em] text-gold">{{ current.category }}</span>
+          <p class="font-display text-xl text-white">{{ current.title }}</p>
+        </figcaption>
+      </figure>
+
+      <button
+        type="button"
+        (click)="next(); $event.stopPropagation()"
+        class="absolute right-4 grid h-12 w-12 place-content-center rounded-full glass-strong text-gold transition hover:bg-gold hover:text-ink sm:right-8"
+        aria-label="Next"
+      >
+        <i class="fa-solid fa-chevron-right text-lg"></i>
+      </button>
+    </div>
+  }
+</section>
+

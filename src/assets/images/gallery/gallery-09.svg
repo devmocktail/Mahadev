@@ -1,0 +1,24 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="520" height="460" viewBox="0 0 520 460" role="img" aria-label="Marigold Mandap">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0B0B"/>
+      <stop offset="0.55" stop-color="#161616"/>
+      <stop offset="1" stop-color="#1c1606"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F6EFCB"/>
+      <stop offset="0.5" stop-color="#D4AF37"/>
+      <stop offset="1" stop-color="#AE8C24"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#D4AF37" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="520" height="460" fill="url(#g)"/>
+  <rect width="520" height="460" fill="url(#glow)"/>
+  <rect x="14" y="14" width="492" height="432" fill="none" stroke="#D4AF37" stroke-opacity="0.35" stroke-width="1.5" rx="18"/>
+  <text x="50%" y="44%" text-anchor="middle" font-family="Playfair Display, serif" font-size="74" fill="url(#gold)">&#10038;</text>
+  <text x="50%" y="62%" text-anchor="middle" font-family="Poppins, sans-serif" font-size="28" letter-spacing="1.5" fill="#F6EFCB" fill-opacity="0.85">Marigold Mandap</text>
+  <text x="50%" y="438" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" letter-spacing="3" fill="#D4AF37" fill-opacity="0.7">MAHADEV EVENTZ</text>
+</svg>

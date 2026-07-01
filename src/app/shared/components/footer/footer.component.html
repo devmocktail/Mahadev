@@ -1,0 +1,110 @@
+<footer class="relative mt-24 overflow-hidden border-t border-gold/15 bg-ink-soft">
+  <div class="pointer-events-none absolute inset-0 bg-ink-radial opacity-60"></div>
+
+  <div class="container-lux relative grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <!-- Brand -->
+    <div class="space-y-5">
+      <app-logo />
+      <p class="max-w-xs text-sm leading-relaxed text-white/60">
+        {{ company.tagline }}. Premium decorations &amp; creative event planning that turn every
+        celebration into a lasting memory.
+      </p>
+      <div class="flex gap-3">
+        <a
+          [href]="company.instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          class="grid h-10 w-10 place-content-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a
+          [href]="company.facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          class="grid h-10 w-10 place-content-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a
+          [href]="whatsappLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+          class="grid h-10 w-10 place-content-center rounded-full border border-gold/30 text-gold transition-all hover:bg-gold hover:text-ink"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div>
+      <h3 class="mb-5 font-display text-lg text-white">Quick Links</h3>
+      <ul class="space-y-3">
+        @for (link of quickLinks; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              class="group inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+            >
+              <i class="fa-solid fa-angle-right text-[0.65rem] text-gold/70 transition-transform group-hover:translate-x-1"></i>
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Services -->
+    <div>
+      <h3 class="mb-5 font-display text-lg text-white">Services</h3>
+      <ul class="space-y-3">
+        @for (service of footerServices; track service.slug) {
+          <li>
+            <a
+              routerLink="/services"
+              [fragment]="service.slug"
+              class="group inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+            >
+              <span aria-hidden="true">{{ service.icon }}</span>
+              {{ service.title }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h3 class="mb-5 font-display text-lg text-white">Get In Touch</h3>
+      <ul class="space-y-4 text-sm text-white/60">
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-phone mt-1 text-gold"></i>
+          <a [href]="'tel:+' + company.phoneIntl" class="hover:text-gold">{{ company.phoneDisplay }}</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-envelope mt-1 text-gold"></i>
+          <a [href]="'mailto:' + company.email" class="hover:text-gold">{{ company.email }}</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-location-dot mt-1 text-gold"></i>
+          <span>{{ company.location }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/5">
+    <div
+      class="container-lux flex flex-col items-center justify-between gap-3 py-6 text-center text-xs text-white/40 sm:flex-row sm:text-left"
+    >
+      <p>© {{ year }} {{ company.name }}. All rights reserved.</p>
+      <p class="flex items-center gap-2">
+        Crafted with <i class="fa-solid fa-heart text-gold"></i> for unforgettable moments
+      </p>
+    </div>
+  </div>
+</footer>

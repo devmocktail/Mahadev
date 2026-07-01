@@ -1,0 +1,91 @@
+<section id="about" class="relative overflow-hidden py-16 sm:py-20 lg:py-24">
+  <div class="container-lux">
+    <div class="grid items-center gap-14 lg:grid-cols-2">
+      <!-- Visual collage -->
+      <div appReveal class="relative">
+        <div class="grid grid-cols-2 gap-4">
+          <img
+            appParallax
+            [parallaxSpeed]="0.04"
+            src="assets/images/about/about-1.jpeg"
+            alt="Elegant blush and gold birthday decoration"
+            loading="lazy"
+            decoding="async"
+            class="mt-8 aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
+          />
+          <img
+            appParallax
+            [parallaxSpeed]="0.08"
+            src="assets/images/about/about-2.jpeg"
+            alt="Luxury gold sequin birthday celebration setup"
+            loading="lazy"
+            decoding="async"
+            class="aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
+          />
+        </div>
+        <!-- Experience badge -->
+        <div
+          class="absolute -bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-2xl glass-strong px-6 py-4 shadow-gold"
+        >
+          <span class="font-display text-4xl font-bold text-gradient-gold">{{
+            company.experienceYears
+          }}</span>
+          <span class="text-xs uppercase leading-tight tracking-[0.2em] text-white/70">
+            Years of<br />Excellence
+          </span>
+        </div>
+      </div>
+
+      <!-- Copy -->
+      <div>
+        <app-section-header
+          eyebrow="About Us"
+          titleLead="Crafting Celebrations,"
+          titleAccent="One Detail at a Time"
+          align="left"
+        />
+
+        <div class="mt-6 space-y-5 text-white/65">
+          <p class="leading-relaxed" appReveal [revealDelay]="80">
+            {{ company.name }} has been creating unforgettable celebrations with elegant
+            decorations, creative ideas, and premium-quality service.
+          </p>
+          <p class="leading-relaxed" appReveal [revealDelay]="160">
+            We specialize in birthdays, anniversaries, proposals, surprise events, festivals, and
+            customized celebrations — each designed to feel as unique as the moment it honours.
+          </p>
+        </div>
+
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+          @for (pillar of pillars; track pillar.text) {
+            <li appReveal class="flex items-center gap-3 text-sm text-white/80">
+              <span class="grid h-10 w-10 shrink-0 place-content-center rounded-xl glass text-gold">
+                <i [class]="pillar.icon"></i>
+              </span>
+              {{ pillar.text }}
+            </li>
+          }
+        </ul>
+
+        @if (showCta()) {
+          <div class="mt-9">
+            <app-button routerLink="/about" variant="outline" icon="fa-solid fa-arrow-right-long">
+              Discover More
+            </app-button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Counters -->
+    <div class="mt-20 grid grid-cols-2 gap-8 rounded-3xl glass p-10 lg:grid-cols-4">
+      @for (stat of stats; track stat.label) {
+        <div appReveal class="flex flex-col items-center text-center">
+          <app-counter [value]="stat.value" [suffix]="stat.suffix" />
+          <span class="mt-2 text-sm text-white/60">{{ stat.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,159 @@
+<section id="booking" class="relative overflow-hidden bg-ink-soft py-16 sm:py-20 lg:py-24">
+  <div class="pointer-events-none absolute inset-0 bg-ink-radial opacity-60"></div>
+  <div
+    class="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-gold/10 blur-[120px]"
+  ></div>
+
+  <div class="container-lux relative">
+    <app-section-header
+      eyebrow="Book Your Event"
+      titleLead="Let's Plan Something"
+      titleAccent="Unforgettable"
+      subtitle="Share a few details and our team will craft a tailored proposal just for you."
+    />
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="mx-auto mt-12 max-w-3xl rounded-3xl glass p-7 shadow-glass sm:p-10"
+      novalidate
+    >
+      <div class="grid gap-6 sm:grid-cols-2">
+        <!-- Name -->
+        <div>
+          <label class="form-label" for="name">Full Name</label>
+          <input id="name" type="text" formControlName="name" class="form-input" placeholder="Your name" />
+          @if (invalid('name')) {
+            <p class="form-error">Please enter your name.</p>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="form-label" for="phone">Phone</label>
+          <input id="phone" type="tel" formControlName="phone" class="form-input" placeholder="10-digit mobile number" />
+          @if (invalid('phone')) {
+            <p class="form-error">Enter a valid 10-digit mobile number.</p>
+          }
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="form-label" for="email">Email</label>
+          <input id="email" type="email" formControlName="email" class="form-input" placeholder="you@example.com" />
+          @if (invalid('email')) {
+            <p class="form-error">Enter a valid email address.</p>
+          }
+        </div>
+
+        <!-- Event type -->
+        <div>
+          <label class="form-label" for="eventType">Event Type</label>
+          <select id="eventType" formControlName="eventType" class="form-input">
+            <option value="" disabled>Select an event</option>
+            @for (type of eventTypes; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+          @if (invalid('eventType')) {
+            <p class="form-error">Please choose an event type.</p>
+          }
+        </div>
+
+        <!-- Date -->
+        <div>
+          <label class="form-label" for="eventDate">Event Date</label>
+          <input id="eventDate" type="date" formControlName="eventDate" class="form-input" />
+          @if (invalid('eventDate')) {
+            <p class="form-error">Please select a date.</p>
+          }
+        </div>
+
+        <!-- Location -->
+        <div>
+          <label class="form-label" for="location">Location</label>
+          <input id="location" type="text" formControlName="location" class="form-input" placeholder="City / venue" />
+          @if (invalid('location')) {
+            <p class="form-error">Please enter a location.</p>
+          }
+        </div>
+
+        <!-- Budget -->
+        <div class="sm:col-span-2">
+          <label class="form-label" for="budget">Budget</label>
+          <select id="budget" formControlName="budget" class="form-input">
+            <option value="" disabled>Select a budget range</option>
+            @for (b of budgets; track b) {
+              <option [value]="b">{{ b }}</option>
+            }
+          </select>
+          @if (invalid('budget')) {
+            <p class="form-error">Please select a budget range.</p>
+          }
+        </div>
+
+        <!-- Message -->
+        <div class="sm:col-span-2">
+          <label class="form-label" for="message">Message</label>
+          <textarea
+            id="message"
+            rows="4"
+            formControlName="message"
+            class="form-input resize-none"
+            placeholder="Tell us about your vision, theme or any special requests…"
+          ></textarea>
+        </div>
+      </div>
+
+      <button
+        appRipple
+        type="submit"
+        [disabled]="submitting()"
+        class="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-8 py-4 font-semibold text-ink shadow-gold transition-all duration-500 ease-lux hover:-translate-y-0.5 hover:shadow-gold-lg disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        @if (submitting()) {
+          <span class="h-5 w-5 animate-spin rounded-full border-2 border-ink/30 border-t-ink"></span>
+          Sending…
+        } @else {
+          <i class="fa-solid fa-paper-plane"></i>
+          Request My Booking
+        }
+      </button>
+    </form>
+  </div>
+
+  <!-- Success popup -->
+  @if (success()) {
+    <div
+      class="fixed inset-0 z-[80] flex items-center justify-center bg-ink/85 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Booking confirmed"
+    >
+      <div @scaleIn class="w-full max-w-md rounded-3xl glass-strong p-9 text-center shadow-gold-lg">
+        <span
+          class="mx-auto grid h-20 w-20 place-content-center rounded-full bg-gold-gradient text-3xl text-ink shadow-gold"
+        >
+          <i class="fa-solid fa-check"></i>
+        </span>
+        <h3 class="mt-6 font-display text-2xl text-white">Booking Received!</h3>
+        <p class="mt-3 text-sm leading-relaxed text-white/65">
+          Thank you for choosing Mahadev Eventz. Our team will reach out shortly to craft your
+          perfect celebration.
+        </p>
+        <p class="mt-4 rounded-xl border border-gold/20 bg-gold/5 px-4 py-2 text-sm text-gold">
+          Reference: <span class="font-semibold">{{ reference() }}</span>
+        </p>
+        <button
+          appRipple
+          type="button"
+          (click)="closeSuccess()"
+          class="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-7 py-3 font-semibold text-ink shadow-gold"
+        >
+          Wonderful!
+        </button>
+      </div>
+    </div>
+  }
+</section>
+
