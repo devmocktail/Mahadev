@@ -22,6 +22,8 @@ npm-debug.log*
 yarn-error.log*
 serve*.log
 serve*.err.log
+prodsrv*.log
+_*.mjs
 
 # Raw image drop (originals are copied into src/assets/images/gallery/photos)
 /assets/

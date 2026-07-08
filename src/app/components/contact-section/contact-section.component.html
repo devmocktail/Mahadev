@@ -70,19 +70,35 @@
         </div>
       </div>
 
-      <!-- Map placeholder -->
-      <div appReveal id="map" class="overflow-hidden rounded-3xl glass shadow-glass">
-        <div class="relative flex h-full min-h-[22rem] flex-col items-center justify-center gap-4 p-8 text-center">
-          <div class="pointer-events-none absolute inset-0 bg-ink-radial opacity-70"></div>
-          <span class="relative grid h-16 w-16 place-content-center rounded-full bg-gold-gradient text-2xl text-ink shadow-gold">
-            <i class="fa-solid fa-map-location-dot"></i>
-          </span>
-          <p class="relative font-display text-xl text-white">{{ company.location }}</p>
-          <p class="relative max-w-xs text-sm text-white/55">
-            Google Maps embed placeholder — drop your live map iframe here in production.
-          </p>
-          <span class="relative mt-2 inline-flex items-center gap-2 text-sm text-gold">
-            <i class="fa-solid fa-location-arrow"></i> Serving celebrations across the region
+      <!-- Founder / portrait -->
+      <div
+        appReveal
+        id="map"
+        class="group relative min-h-[22rem] overflow-hidden rounded-3xl border border-gold/20 shadow-glass"
+      >
+        <img
+          src="assets/images/team/somith.jpeg"
+          alt="Somith — Mahadev Eventz"
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 ease-lux group-hover:scale-105"
+        />
+        <!-- Gradient veil for text legibility -->
+        <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+
+        <!-- Caption -->
+        <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
+          <div>
+            <p class="font-display text-2xl text-white">Somith</p>
+            <p class="text-sm text-gold">Founder, Mahadev Eventz</p>
+            <p class="mt-2 inline-flex items-center gap-2 text-xs text-white/60">
+              <i class="fa-solid fa-location-dot text-gold"></i> {{ company.location }}
+            </p>
+          </div>
+          <span
+            class="grid h-11 w-11 shrink-0 place-content-center rounded-full bg-gold-gradient text-ink shadow-gold"
+          >
+            <i class="fa-solid fa-crown"></i>
           </span>
         </div>
       </div>

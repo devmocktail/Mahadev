@@ -6,6 +6,28 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Force the page to open at the very top. Disables native scroll
+         restoration before first paint and re-asserts top for a few frames,
+         so no browser/live-reload restores a previous scroll position (which
+         showed as a jump to the footer). -->
+    <script>
+      (function () {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        var toTop = function () { window.scrollTo(0, 0); };
+        toTop();
+        document.addEventListener('DOMContentLoaded', toTop);
+        window.addEventListener('load', toTop);
+        // Re-assert top until lazy content settles, but stop the moment the
+        // user interacts so we never fight an intentional scroll.
+        var id = setInterval(toTop, 50);
+        var stop = function () { clearInterval(id); };
+        setTimeout(stop, 1200);
+        ['wheel', 'touchstart', 'keydown', 'pointerdown', 'mousedown'].forEach(function (ev) {
+          window.addEventListener(ev, stop, { once: true, passive: true });
+        });
+      })();
+    </script>
+
     <!-- Primary SEO -->
     <meta name="description" content="Mahadev Eventz creates unforgettable celebrations with premium balloon &amp; flower decoration, birthdays, anniversaries, proposals and festival events. We make your moments unforgettable." />
     <meta name="keywords" content="event management, balloon decoration, flower decoration, birthday decoration, anniversary setup, proposal decor, surprise events, Mahadev Eventz" />
