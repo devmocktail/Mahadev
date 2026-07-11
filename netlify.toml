@@ -8,11 +8,6 @@
   # Angular 20 requires Node 20.19+ / 22.12+
   NODE_VERSION = "20"
 
-# Serverless functions (booking form email sender)
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
 # SPA fallback: let the Angular router handle all deep links (e.g. /gallery)
 [[redirects]]
   from = "/*"
