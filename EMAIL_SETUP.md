@@ -1,42 +1,44 @@
-# Booking form → email (Web3Forms)
+# Booking form → email (Netlify function + Resend)
 
-The booking form sends **client-side via Web3Forms** — free, no subscription,
-no account/password, no server. It works locally and on Netlify. Every
-submission is delivered to **S.somith07@gmail.com**, with the customer's address
-as **Reply-To** (just hit *Reply* to answer them).
+The booking form POSTs to a **Netlify serverless function** that sends a **fully
+custom, branded HTML email** (template lives in
+[`netlify/functions/send-booking.js`](netlify/functions/send-booking.js)) to
+**S.somith07@gmail.com**, with the customer as **Reply-To** (hit *Reply* to
+answer them). Both the function and Resend are **free** — no subscription.
 
-## Setup (30 seconds)
+## Setup (one time, ~3 minutes)
 
-1. Go to **https://web3forms.com**
-2. In "Create Access Key", enter the receiving email: **S.somith07@gmail.com**
-3. Web3Forms instantly emails you an **Access Key** (a UUID). No login needed.
-4. Paste it into
-   [`src/app/core/data/contact-form.config.ts`](src/app/core/data/contact-form.config.ts):
+1. Sign up at **https://resend.com** — you can sign up **with S.somith07@gmail.com**.
+   (Free tier: 3,000 emails/month.)
+2. **API Keys → Create API Key** → copy it (looks like `re_xxxxxxxx`).
+3. In Netlify → your site → **Site configuration → Environment variables →
+   Add a variable**:
 
-   ```ts
-   export const CONTACT_FORM = {
-     web3formsAccessKey: 'paste-your-access-key-here',
-     toEmail: 'S.somith07@gmail.com',
-   } as const;
-   ```
-5. Commit + push. Netlify redeploys and the form starts emailing.
+   | Key | Value |
+   |-----|-------|
+   | `RESEND_API_KEY` | the `re_...` key from step 2 |
+   | `CONTACT_TO` | `S.somith07@gmail.com` (optional; this is the default) |
 
-> Until the key is added, the form gracefully falls back to opening the
-> visitor's mail app with a pre-filled draft, so no enquiry is lost.
+4. Netlify → **Deploys → Trigger deploy → Clear cache and deploy site**.
 
-## What the customer sees
-A gold **"Booking Received!"** popup with a reference number.
+Submit a test booking on the live site — it lands in **S.somith07@gmail.com**
+with the gold/black template.
 
-## What arrives in the inbox
-A clean email listing: Reference, Name, Phone, Email, Event Type, Event Date,
-Location, Budget and Message — with **Reply-To** set to the customer.
+## Why sending "to your own account email" works with no domain
+Resend lets you send from `onboarding@resend.dev` to the **email that owns the
+Resend account** without verifying a domain. Since you sign up with
+S.somith07@gmail.com and mail is delivered there, it works immediately.
 
-## Free tier
-Web3Forms free plan: **250 submissions / month**, unlimited forms. No credit card.
+> Want emails to come **from** a custom address (e.g. `hello@mahadeveventz.com`)
+> or to also send confirmations **to customers**? Verify a domain in Resend
+> (Domains → Add), then set the `MAIL_FROM` env var to
+> `Mahadev Eventz <hello@yourdomain.com>`.
 
----
+## Editing the email design
+Everything is in [`netlify/functions/send-booking.js`](netlify/functions/send-booking.js)
+— the `emailTemplate()` function is plain HTML you can change freely.
 
-### Other free options (if you ever want to switch)
-- **Netlify Forms** — built into your hosting (100 submissions/mo free); set the
-  notification email in the Netlify dashboard. No third-party account.
-- **FormSubmit.co** — zero signup; point the form at the email address directly.
+## Local testing
+Netlify functions only run on Netlify (or via `netlify dev`). With plain
+`npm start` (`ng serve`) the send will show an error — that's expected. Test the
+real send on the deployed site after adding `RESEND_API_KEY`.
