@@ -119,18 +119,28 @@
           Request My Booking
         }
       </button>
+
+      @if (errorMsg()) {
+        <p
+          class="mt-4 flex items-center justify-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-center text-sm text-red-300"
+          role="alert"
+        >
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ errorMsg() }}
+        </p>
+      }
     </form>
   </div>
 
   <!-- Success popup -->
   @if (success()) {
     <div
-      class="fixed inset-0 z-[80] flex items-center justify-center bg-ink/85 p-4 backdrop-blur-sm"
+      class="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-ink/85 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Booking confirmed"
     >
-      <div @scaleIn class="w-full max-w-md rounded-3xl glass-strong p-9 text-center shadow-gold-lg">
+      <div @scaleIn class="my-auto w-full max-w-md rounded-3xl glass-strong p-7 text-center shadow-gold-lg sm:p-9">
         <span
           class="mx-auto grid h-20 w-20 place-content-center rounded-full bg-gold-gradient text-3xl text-ink shadow-gold"
         >

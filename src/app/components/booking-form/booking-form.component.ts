@@ -41,6 +41,7 @@ export class BookingFormComponent {
   readonly submitting = signal(false);
   readonly success = signal(false);
   readonly reference = signal('');
+  readonly errorMsg = signal<string | null>(null);
 
   readonly form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -60,20 +61,32 @@ export class BookingFormComponent {
   }
 
   submit(): void {
+    this.errorMsg.set(null);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
     this.submitting.set(true);
-    this.bookingService.submit(this.form.getRawValue()).subscribe((res) => {
-      this.submitting.set(false);
-      this.reference.set(res.reference);
-      this.success.set(true);
+    this.bookingService.submit(this.form.getRawValue()).subscribe({
+      next: (res) => {
+        this.submitting.set(false);
+        this.reference.set(res.reference);
+        this.success.set(true);
+      },
+      error: (err: unknown) => {
+        this.submitting.set(false);
+        this.errorMsg.set(
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please call us at 9030630508.',
+        );
+      },
     });
   }
 
   closeSuccess(): void {
     this.success.set(false);
+    this.errorMsg.set(null);
     this.form.reset();
   }
 }
