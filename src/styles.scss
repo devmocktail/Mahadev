@@ -136,21 +136,24 @@
 }
 
 /* ---------- Scroll reveal (used by appReveal directive) ----------
-   `will-change` promotes the element to its own compositor layer, which is
-   what makes the transition smooth — but it costs memory for as long as it is
-   set. RevealDirective strips the `.reveal` class once the transition has
-   finished, so a long page never accumulates dozens of promoted layers. */
+   The hidden state is `.reveal--armed`, which RevealDirective applies itself
+   via a host binding — it is deliberately NOT a static rule on `.reveal`, so
+   content stays visible if JS never runs, if reduced motion is preferred, or
+   if the IntersectionObserver never reports an intersection. A decorative
+   animation must not be able to hide content permanently.
+
+   `will-change` lives on the armed class too, so dropping that class releases
+   the compositor layer automatically and a long page never accumulates dozens
+   of promoted layers. */
 .reveal {
-  opacity: 0;
-  transform: translateY(40px);
   transition:
     opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
 }
-.reveal--visible {
-  opacity: 1;
-  transform: translateY(0);
+.reveal--armed {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
 }
 
 /* ---------- Button ripple (used by appRipple directive) ---------- */

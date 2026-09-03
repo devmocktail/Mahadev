@@ -25,7 +25,7 @@
   width: 1.25em;
 }
 
-/* ---------- solid (42 glyphs) ---------- */
+/* ---------- solid (43 glyphs) ---------- */
 @font-face {
   font-family: 'FA Solid';
   font-style: normal;
@@ -77,6 +77,7 @@
 .fa-solid.fa-plus::before { content: '\2b'; }
 .fa-solid.fa-quote-left::before { content: '\f10d'; }
 .fa-solid.fa-ring::before { content: '\f70b'; }
+.fa-solid.fa-rotate-right::before { content: '\f2f9'; }
 .fa-solid.fa-shield-halved::before { content: '\f3ed'; }
 .fa-solid.fa-spa::before { content: '\f5bb'; }
 .fa-solid.fa-star::before { content: '\f005'; }

@@ -100,9 +100,21 @@ all, silently. Bump `FA_VERSION` in
 - **Parallax** — one shared scroll listener and one `requestAnimationFrame`
   serve every `appParallax` element, reads are batched before writes, and
   off-screen elements drop out of the pass entirely.
-- **Reveal** — `appReveal` strips its own class (and the `will-change` hint)
-  once the transition finishes, so long pages don't accumulate compositor
-  layers.
+- **Reveal** — `appReveal` fails *visible*: the hidden state is
+  `.reveal--armed`, applied by the directive itself, never a static CSS rule.
+  If JS doesn't run, reduced motion is set, or the IntersectionObserver never
+  reports an intersection, content just shows — and a safety timer reveals
+  anything still hidden after 3.5s. A decorative animation must never be able
+  to hide content permanently. `will-change` lives on the armed class, so
+  dropping it releases the compositor layer automatically.
+- **Failed route loads** — every page is a dynamic `import()`, and one dropped
+  request used to leave the outlet silently empty: shell visible, content
+  blank, no error, no way out but a manual reload. `RouteRecoveryService`
+  reloads once per URL per tab (a browser caches the *rejection* of a failed
+  module import, so only a reload clears it — which also refreshes a stale
+  index.html pointing at chunk names a newer deploy no longer has), then shows
+  a "Try again" panel instead of a blank page. The per-URL sessionStorage
+  marker bounds it, so it can never become a reload loop.
 - **Lightbox** — opening a gallery image paints the thumbnail the browser
   already has (briefly blurred) and swaps in the full-resolution variant when
   it arrives, so it never shows an empty frame. Tiles also prefetch their
@@ -127,6 +139,7 @@ src/
 │  │  ├─ data/             # static content datasets
 │  │  ├─ directives/       # reveal, parallax, ripple
 │  │  ├─ models/           # TypeScript interfaces
+│  │  ├─ router/           # idle preloading, failed-route recovery
 │  │  └─ services/         # seo, theme, scroll, booking, content
 │  ├─ shared/components/   # reusable UI (navbar, footer, button, counter, img,
 │  │                       #   cards, loader, section-header, page-banner,
