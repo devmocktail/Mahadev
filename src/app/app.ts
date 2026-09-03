@@ -67,21 +67,13 @@ export class App implements OnInit {
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
+        // Scroll position is handled by the router's `withInMemoryScrolling`.
         this.routeLoading.set(false);
-        if (typeof window !== 'undefined') window.scrollTo(0, 0);
       }
     });
   }
 
   ngOnInit(): void {
-    // Disable browser scroll restoration (belt-and-suspenders with the inline
-    // <head> script) and start at the top.
-    if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
-    }
     this.scroll.init();
   }
 }

@@ -4,6 +4,7 @@ import { CounterComponent } from '../../shared/components/counter/counter.compon
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
 import { ParallaxDirective } from '../../core/directives/parallax.directive';
+import { ImgComponent } from '../../shared/components/img/img.component';
 import { STATS } from '../../core/data/features.data';
 import { COMPANY } from '../../core/data/company.data';
 
@@ -21,6 +22,7 @@ import { COMPANY } from '../../core/data/company.data';
     ButtonComponent,
     RevealDirective,
     ParallaxDirective,
+    ImgComponent,
   ],
   templateUrl: './about.component.html',
 })

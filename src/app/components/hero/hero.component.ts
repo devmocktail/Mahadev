@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ParallaxDirective } from '../../core/directives/parallax.directive';
+import { ImgComponent } from '../../shared/components/img/img.component';
 import { fadeUp, slideInRight, fadeIn } from '../../core/animations/animations';
 import { COMPANY } from '../../core/data/company.data';
 
@@ -12,7 +13,7 @@ import { COMPANY } from '../../core/data/company.data';
   selector: 'app-hero',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ButtonComponent, ParallaxDirective],
+  imports: [ButtonComponent, ParallaxDirective, ImgComponent],
   animations: [fadeUp, slideInRight, fadeIn],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',

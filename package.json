@@ -6,9 +6,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "node tools/check-icons.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "serve:ssr": "node dist/mahadev-eventz/server/server.mjs"
+    "images:optimize": "node tools/optimize-images.mjs",
+    "icons:build": "node tools/build-icons.mjs",
+    "icons:check": "node tools/check-icons.mjs"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +23,7 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "~20.0.0",
@@ -29,6 +31,8 @@
     "@angular/compiler-cli": "^20.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.3",
+    "subset-font": "^2.7.0",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.8.0"
   }

@@ -85,13 +85,12 @@
           [parallaxSpeed]="0.06"
           class="overflow-hidden rounded-[2rem] border border-gold/20 shadow-gold-lg"
         >
-          <img
+          <app-img
             src="assets/images/hero/hero-event.jpeg"
             alt="Luxury decorated event stage by Mahadev Eventz"
-            width="640"
-            height="720"
-            decoding="async"
-            class="h-full max-h-[560px] w-full object-cover"
+            sizes="(min-width: 1024px) 45vw, 90vw"
+            priority
+            imgClass="h-full max-h-[560px] w-full object-cover"
           />
           <div class="absolute inset-0 bg-hero-veil"></div>
         </div>

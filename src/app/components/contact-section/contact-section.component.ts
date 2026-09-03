@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ImgComponent } from '../../shared/components/img/img.component';
 import { COMPANY } from '../../core/data/company.data';
 
 /**
@@ -11,7 +12,7 @@ import { COMPANY } from '../../core/data/company.data';
   selector: 'app-contact-section',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeaderComponent, RevealDirective],
+  imports: [SectionHeaderComponent, RevealDirective, ImgComponent],
   templateUrl: './contact-section.component.html',
 })
 export class ContactSectionComponent {

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ScrollService } from '../../../core/services/scroll.service';
 import { scaleIn } from '../../../core/animations/animations';
 
@@ -24,5 +24,6 @@ import { scaleIn } from '../../../core/animations/animations';
 })
 export class BackToTopComponent {
   readonly scroll = inject(ScrollService);
-  readonly visible = computed(() => this.scroll.progress() > 0.12);
+  /** Flips twice per page rather than on every scroll frame. */
+  readonly visible = this.scroll.pastFold;
 }

@@ -23,7 +23,12 @@
     >
       @for (item of filtered(); track item.id) {
         <div class="break-inside-avoid">
-          <app-gallery-card [item]="item" (open)="openLightbox($event)" />
+          <app-gallery-card
+            [item]="item"
+            [lightboxSizes]="lightboxSizes"
+            [eager]="$index < 3"
+            (open)="openLightbox($event)"
+          />
         </div>
       } @empty {
         <p class="col-span-full text-center text-white/50">No items in this category yet.</p>
@@ -60,10 +65,13 @@
       </button>
 
       <figure @scaleIn class="max-h-[85vh] max-w-4xl" (click)="$event.stopPropagation()">
-        <img
+        <app-img
           [src]="current.image"
           [alt]="current.title"
-          class="max-h-[72vh] w-full rounded-2xl border border-gold/20 object-contain shadow-gold-lg"
+          [sizes]="lightboxSizes"
+          [placeholder]="lightboxThumb()"
+          priority
+          imgClass="max-h-[72vh] w-full rounded-2xl border border-gold/20 object-contain shadow-gold-lg"
         />
         <figcaption class="mt-4 text-center">
           <span class="text-xs uppercase tracking-[0.3em] text-gold">{{ current.category }}</span>

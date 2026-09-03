@@ -4,24 +4,22 @@
       <!-- Visual collage -->
       <div appReveal class="relative">
         <div class="grid grid-cols-2 gap-4">
-          <img
-            appParallax
-            [parallaxSpeed]="0.04"
-            src="assets/images/about/about-1.jpeg"
-            alt="Elegant blush and gold birthday decoration"
-            loading="lazy"
-            decoding="async"
-            class="mt-8 aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
-          />
-          <img
-            appParallax
-            [parallaxSpeed]="0.08"
-            src="assets/images/about/about-2.jpeg"
-            alt="Luxury gold sequin birthday celebration setup"
-            loading="lazy"
-            decoding="async"
-            class="aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
-          />
+          <div appParallax [parallaxSpeed]="0.04" class="mt-8">
+            <app-img
+              src="assets/images/about/about-1.jpeg"
+              alt="Elegant blush and gold birthday decoration"
+              sizes="(min-width: 1024px) 24vw, 45vw"
+              imgClass="aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
+            />
+          </div>
+          <div appParallax [parallaxSpeed]="0.08">
+            <app-img
+              src="assets/images/about/about-2.jpeg"
+              alt="Luxury gold sequin birthday celebration setup"
+              sizes="(min-width: 1024px) 24vw, 45vw"
+              imgClass="aspect-[3/4] w-full rounded-3xl border border-gold/20 object-cover shadow-glass"
+            />
+          </div>
         </div>
         <!-- Experience badge -->
         <div
